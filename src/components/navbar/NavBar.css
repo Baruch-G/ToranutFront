@@ -1,0 +1,13 @@
+.navbar {
+  width: 100%;
+  background-color: #1f1f1f;
+  height: 100px;
+  display: flex;
+  gap: 30px;
+  direction: rtl;
+}
+
+.navbar > a {
+  text-decoration: none;
+  color: white;
+}
