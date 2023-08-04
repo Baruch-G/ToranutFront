@@ -1,7 +1,8 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DutiesTable from './components/DutiesTable';
+import DutiesTable from './components/dutiesTable.tsx/DutiesTable';
 import NavBar from './components/navbar/NavBar';
+import EditPage from './components/editPage/EditPage';
 
 function App() {
   return (
@@ -9,10 +10,10 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/duties-table" element={<DutiesTable />}>
-            <Route index element={<div>עמוד בית</div>} />
-            <Route path="*" element={<div>העמוד לא נמצא</div>} />
-          </Route>
+          <Route index element={<div>עמוד בית</div>} /> 
+          <Route path="/duties-table" element={<DutiesTable />}/>
+          <Route path="/edit" element={<EditPage />}/>
+          <Route path="*" element={<div>העמוד לא נמצא</div>} />
         </Routes>
       </BrowserRouter>
     </div>

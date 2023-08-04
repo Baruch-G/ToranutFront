@@ -1,13 +1,15 @@
-.navbar {
-  width: 100%;
-  background-color: #1f1f1f;
-  height: 100px;
-  display: flex;
-  gap: 30px;
-  direction: rtl;
-}
-
-.navbar > a {
-  text-decoration: none;
-  color: white;
-}
+a:link {
+    text-decoration: none !important;
+  }
+  
+  a:visited {
+    text-decoration: none !important;
+  }
+  
+  a:hover {
+    text-decoration: none !important;
+  }
+  
+  a:active {
+    text-decoration: none !important;
+  }

@@ -1,0 +1,36 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.cards-container {
+    display: grid;
+    justify-content: center;
+    justify-items: right;
+    align-content: start;
+    padding: 20px;
+    border: solid rgb(50, 50, 50);
+    border-width: 3px;
+    border-radius: 3px;
+    margin: 0px 10px 0px 10px;
+}
+
+.add-card {
+    width: 350px;
+    height: 70px;
+    cursor:  pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 23px;
+    background-color: rgb(31, 31, 31);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.add-card:hover {
+    transform: scale(1.09);
+    transition: 200ms;
+    background-color: rgb(34, 34, 34);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 0px;
+}
