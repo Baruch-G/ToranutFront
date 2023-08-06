@@ -11,12 +11,20 @@ const columns: GridColDef[] = [
             params.row.ShiftType ? params.row.ShiftType.name : '',
     },
     {
-        field: 'Executor', headerName: 'מבצע', width: 130, valueGetter: (params: GridValueGetterParams) =>
+        field: 'ExecutorName', headerName: 'מבצע', width: 130, valueGetter: (params: GridValueGetterParams) =>
             params.row.Executor ? params.row.Executor.name : '',
     },
     {
-        field: 'Substitute', headerName: 'עתודה', width: 130, valueGetter: (params: GridValueGetterParams) =>
+        field: 'Executor', headerName: 'מספר אישי מבצע', width: 130, valueGetter: (params: GridValueGetterParams) =>
+            params.row.Executor ? params.row.Executor.soldierId : '', sortable: false
+    },
+    {
+        field: 'SubstituteName', headerName: 'עתודה', width: 130, valueGetter: (params: GridValueGetterParams) =>
             params.row.Substitute ? params.row.Substitute.name : '',
+    },
+    {
+        field: 'Substitute', headerName: 'מספר אישי עתודה', width: 130, valueGetter: (params: GridValueGetterParams) =>
+            params.row.Substitute ? params.row.Substitute.soldierId : '', sortable: false
     },
     {
         field: 'startdate', headerName: 'תאריך התחלה', width: 130, valueGetter: (params: GridValueGetterParams) =>
@@ -25,14 +33,13 @@ const columns: GridColDef[] = [
     {
         field: 'enddate', headerName: 'תאריך סיום', width: 130, valueGetter: (params: GridValueGetterParams) =>
             params.row.enddate ? dateFormat(new Date(params.row.enddate)) : ''
-    },
+    }
 ];
 
 const DutiesTable = () => {
     const usersTableContainer = useRef<HTMLDivElement>(null) // Add the type here
 
     const [rows, setRows] = useState<Potential[]>([])
-
 
     useEffect(() => {
         const getPotentials = async () => {

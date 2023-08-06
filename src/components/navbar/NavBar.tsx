@@ -20,6 +20,12 @@ import './NavBar.css'
 export default function NavBar() {
     const tabItems = [
         {
+            content: 'כניסה',
+            link: '/login',
+            icon: <LoginIcon />,
+            isVisible: true,
+        },
+        {
             content: 'בית',
             link: '/',
             icon: <AppRegistrationIcon />,
@@ -36,7 +42,8 @@ export default function NavBar() {
             link: '/edit',
             icon: <AppRegistrationIcon />,
             isVisible: true,
-        }
+        },
+ 
     ]
     return (
         <Box sx={{ flexGrow: 1 }}>

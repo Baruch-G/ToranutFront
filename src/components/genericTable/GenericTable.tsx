@@ -1,6 +1,5 @@
 import { DataGrid, GridColDef, GridValidRowModel, GridValueGetterParams } from '@mui/x-data-grid';
 import "./GenericTable.css"
-import { useEffect } from 'react';
 
 interface GenericTableItems {
     items: GridValidRowModel[]
