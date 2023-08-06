@@ -36,25 +36,7 @@ export default function NavBar() {
             link: '/edit',
             icon: <AppRegistrationIcon />,
             isVisible: true,
-        },
-        // {
-        //   content: 'רשימת פריטים',
-        //   link: '/collections-nav',
-        //   icon: <ListAltIcon />,
-        //   isVisible: true,
-        // },
-        // {
-        //   content: 'משתמשים',
-        //   link: '/manage-users',
-        //   icon: <PeopleAltIcon />,
-        //   isVisible: true,
-        // },
-        // {
-        //   content: 'כניסה/הרשמה',
-        //   link: '/login',
-        //   icon: <LoginIcon />,
-        //   isVisible: true,
-        // },
+        }
     ]
     return (
         <Box sx={{ flexGrow: 1 }}>
