@@ -1,3 +1,7 @@
 .MuiDataGrid-columnHeaders {
     user-select: none;
 }
+
+.css-wop1k0-MuiDataGrid-footerContainer  {
+    direction: ltr;
+}
