@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/components/dutiesTable.tsx/DutiesTable.tsx"],
+  "include": ["src", "src/components/dutiesTable/DutiesTable.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

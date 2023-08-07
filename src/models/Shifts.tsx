@@ -27,3 +27,17 @@ export interface Potential {
     createdAt: string
     updatedAt: string,
 }
+
+export interface Constraints {
+    _id: string,
+    name: string,
+    soldierId: number,
+    constraintList: Constraint[]
+}
+
+export interface Constraint {
+    _id: string,
+    constraint: string,
+    startdate: string,
+    enddate: string
+}

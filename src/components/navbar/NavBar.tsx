@@ -43,6 +43,12 @@ export default function NavBar() {
             icon: <AppRegistrationIcon />,
             isVisible: true,
         },
+        {
+            content: 'אילוצים',
+            link: '/constraints',
+            icon: <AppRegistrationIcon />,
+            isVisible: true,
+        },
  
     ]
     return (
