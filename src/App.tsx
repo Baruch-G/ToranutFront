@@ -1,27 +1,68 @@
-import './App.css'
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DutiesTable from './components/dutiesTable/DutiesTable';
-import NavBar from './components/navbar/NavBar';
-import EditPage from './components/editPage/EditPage';
-import Login from './components/login/Login';
-import ConstraintsTable from './components/constraints/Constraints';
+import DutiesTable from "./components/dutiesTable/DutiesTable";
+import NavBar from "./components/navbar/NavBar";
+import EditPage from "./components/editPage/EditPage";
+import Login from "./components/login/Login";
+import ConstraintsTable from "./components/constraints/Constraints";
+import { useState, useEffect } from "react";
+import { Alert, Snackbar } from "@mui/material";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 
 function App() {
+  const [loggedIn, setloggedIn] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+
+  useEffect(() => {
+    if (loggedIn)
+      handleOpen();
+    if (localStorage.getItem("SoldierID")) {
+      setloggedIn(true);
+    }
+  }, [loggedIn]);
+
+  const handleOpen = () => {
+    setLoginSuccess(true);
+  };
+
+  const handleClose = () => {
+    setLoginSuccess(false);
+  };
+
   return (
     <div>
       <BrowserRouter>
-        <NavBar />
+        <NavBar isLoggedIn={loggedIn} />
         <Routes>
-          <Route index element={<div>עמוד בית</div>} /> 
-          <Route path="/duties-table" element={<DutiesTable />}/>
-          <Route path="/constraints" element={<ConstraintsTable />}/>
-          <Route path="/edit" element={<EditPage />}/>
-          <Route path="/login" element={<Login onLogin={() => {}}/>}/>
+          <Route index element={<div>עמוד בית</div>} />
+          <Route path="/duties-table" element={<DutiesTable />} />
+          <Route path="/constraints" element={<ConstraintsTable />} />
+          <Route path="/edit" element={<EditPage />} />
           <Route path="*" element={<div>העמוד לא נמצא</div>} />
+          <Route
+            path="/login"
+            element={<Login isLoggedIn={loggedIn} setIsLoggedIn={setloggedIn} />}
+          />
         </Routes>
       </BrowserRouter>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        open={loginSuccess}
+        autoHideDuration={1500}
+        onClose={handleClose}
+      >
+        {
+          <Alert
+            style={{ backgroundColor: "#2e7d32", color: "white" }}
+            icon={<CheckCircleOutlineIcon sx={{ color: "white" }} />}
+          >
+            התחברת בהצלחה
+          </Alert>
+        }
+      </Snackbar>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

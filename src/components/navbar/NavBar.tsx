@@ -17,37 +17,48 @@ import ListAltIcon from '@mui/icons-material/ListAlt'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import './NavBar.css'
 
-export default function NavBar() {
+interface NavBarProps {
+    isLoggedIn: boolean;
+}
+
+
+export default function NavBar(props: NavBarProps) {
     const tabItems = [
         {
             content: 'כניסה',
             link: '/login',
             icon: <LoginIcon />,
-            isVisible: true,
+            isVisible: !props.isLoggedIn,
+        },
+        {
+            content: 'יציאה',
+            link: '/login',
+            icon: <LoginIcon />,
+            isVisible: props.isLoggedIn,
         },
         {
             content: 'בית',
             link: '/',
             icon: <AppRegistrationIcon />,
-            isVisible: true,
+            isVisible: props.isLoggedIn,
         },
         {
             content: 'טבלת שמירות',
             link: '/duties-table',
             icon: <AppRegistrationIcon />,
-            isVisible: true,
+            isVisible: props.isLoggedIn,
         },
         {
             content: 'עריכה',
             link: '/edit',
             icon: <AppRegistrationIcon />,
-            isVisible: true,
+            isVisible: props.isLoggedIn,
         },
         {
             content: 'אילוצים',
             link: '/constraints',
             icon: <AppRegistrationIcon />,
-            isVisible: true,
+            isVisible: props.isLoggedIn,
         },
  
     ]

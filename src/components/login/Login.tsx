@@ -1,58 +1,64 @@
-import React, { useState, FormEvent } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import FilledInput from '@mui/material/FilledInput';
-import LoginIcon from '@mui/icons-material/Login'
-import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-
-export interface User {
-  id: string;
-  name : string
-}
+import React, { useState, FormEvent, useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import InputAdornment from "@mui/material/InputAdornment";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import FormControl from "@mui/material/FormControl";
+import FilledInput from "@mui/material/FilledInput";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
 
 interface LoginProps {
-  onLogin: (user: User) => void;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
-const Login = (props : LoginProps) => {
+const Login = (props: LoginProps) => {
   const navigate = useNavigate();
-
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const [values, setValues] = useState<{
     errVisible: boolean;
     userName: string;
   }>({
     errVisible: false,
-    userName: '',
+    userName: "",
   });
 
-  const handleChange = (prop: keyof typeof values) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  useEffect(() => {
+    if (props.isLoggedIn) {
+      localStorage.removeItem("SoldierID");
+      props.setIsLoggedIn(false);
+    }
+  }, [props.isLoggedIn]);
 
   const logIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setUserObj(values.userName);
-    console.log('logged in');
+    userExist(parseInt(values.userName));
   };
 
-  const setUserObj = async (SoldierID: string) => {
-    await fetch(`//Url here... ${SoldierID}`)
+  const handleChange =
+    (prop: keyof typeof values) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+
+  const handleClose = () => {
+    setValues({ ...values, errVisible: false });
+  };
+
+  const userExist = async (SoldierID: number) => {
+    await fetch(`http://localhost:3000/potential/shifts/${SoldierID}`)
       .then((res) => {
-        return res.json();
+        return res.text();
       })
       .then((data) => {
-        var resUser : boolean | User = data
+        const dataResponse = data === "true";
 
-        if (resUser) {
-          props.onLogin(resUser as User);
+        if (dataResponse) {
+          localStorage.setItem("SoldierID", SoldierID.toString());
+          props.setIsLoggedIn(true);
+          setLoginSuccess(true);
           navigate(`/`);
         } else {
           setValues({ ...values, errVisible: true });
@@ -64,21 +70,31 @@ const Login = (props : LoginProps) => {
     <center>
       <Card style={cardStyle} sx={{ minWidth: 100 }}>
         <form style={gridStyle} onSubmit={logIn}>
-          <div style={{ justifySelf: 'end' }}>
-            <Link to="/">
-              {' '}
-              <LoginIcon style={{ color: 'red', fontSize: 22 }} />
-            </Link>
-          </div>
           <CardContent>
             <h3>הזן מספר אישי</h3>
-            <FormControl sx={{ m: 1, width: '50ch' }} variant="filled">
-              <InputLabel htmlFor="filled-adornment">מספר אישי</InputLabel>
+            <FormControl
+              sx={{
+                m: 1,
+                width: "50ch",
+                direction: "rtl",
+                MozAppearance: "textfield",
+              }}
+              variant="filled"
+            >
               <FilledInput
                 id="filled-adornment"
                 type="number"
+                sx={{
+                  "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                    {
+                      display: "none",
+                    },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={values.userName}
-                onChange={handleChange('userName')}
+                onChange={handleChange("userName")}
                 endAdornment={
                   <InputAdornment position="end">
                     <AccountCircle />
@@ -87,18 +103,26 @@ const Login = (props : LoginProps) => {
               />
             </FormControl>
           </CardContent>
-          {values.errVisible && (
-            <p
+          <Snackbar
+            sx={{ direction: "rtl" }}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            open={values.errVisible}
+            autoHideDuration={1500}
+            onClose={handleClose}
+          >
+            <Alert
               style={{
-                marginTop: -20,
-                color: 'red',
+                backgroundColor: "#d32f2f",
+                color: "white",
+                direction: "rtl",
               }}
+              icon={<></>}
             >
-              מספר אישי לא קיים במאגר
-            </p>
-          )}
+              המספר האישי הזה לא תקין או לא קיבל תורנות
+            </Alert>
+          </Snackbar>
           <Button
-            style={{ width: 300, backgroundColor: '#292929' }}
+            style={{ width: 300, backgroundColor: "#292929" }}
             type="submit"
             size="large"
             variant="contained"
@@ -110,26 +134,34 @@ const Login = (props : LoginProps) => {
           <div
             style={{
               marginTop: 20,
-              display: 'grid',
-              gridTemplateColumns: '1fr 0.5fr 1fr',
+              display: "grid",
+              gridTemplateColumns: "1fr 0.5fr 1fr",
             }}
-          >
-          </div>
+          ></div>
         </form>
       </Card>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        open={loginSuccess}
+        autoHideDuration={4000}
+      >
+        {<Alert severity="success">This is a success message!</Alert>}
+      </Snackbar>
     </center>
   );
 };
 
 const gridStyle: React.CSSProperties = {
-  display: 'grid',
-  justifyItems: 'center',
+  display: "grid",
+  justifyItems: "center",
+  direction: "rtl",
 };
 
 const cardStyle: React.CSSProperties = {
   marginTop: 20,
   width: 600,
   padding: 10,
+  direction: "rtl",
 };
 
 export default Login;
