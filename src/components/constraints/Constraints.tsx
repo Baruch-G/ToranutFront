@@ -61,9 +61,9 @@ const ConstraintsTable = () => {
     };
 
     return (
-      <GridToolbarContainer>
-        <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-          Add record
+      <GridToolbarContainer >
+        <Button sx={{marginRight:210, direction: "ltr"}} color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+          הוסף אילוץ
         </Button>
       </GridToolbarContainer>
     );
@@ -285,9 +285,8 @@ const ConstraintsTable = () => {
         height: 700,
         direction: "rtl",
         backgroundColor: "white",
-        marginLeft: "50px",
-        marginRight: "50px",
-        marginTop: "50px",
+        borderRadius: "5px",
+        margin: "60px",
       }}
     >
       <DataGrid
