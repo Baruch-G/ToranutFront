@@ -28,6 +28,7 @@ const Login = (props: LoginProps) => {
   useEffect(() => {
     if (props.isLoggedIn) {
       localStorage.removeItem("SoldierID");
+      localStorage.removeItem("SoldierName");
       props.setIsLoggedIn(false);
     }
   }, [props.isLoggedIn]);
@@ -63,6 +64,13 @@ const Login = (props: LoginProps) => {
         } else {
           setValues({ ...values, errVisible: true });
         }
+      });
+    await fetch(`http://localhost:3000/potential/shifts/name/${SoldierID}`)
+      .then((res) => {
+        return res.text();
+      })
+      .then((data) => {
+        localStorage.setItem("SoldierName", data);
       });
   };
 
@@ -158,7 +166,7 @@ const gridStyle: React.CSSProperties = {
 };
 
 const cardStyle: React.CSSProperties = {
-  marginTop: 20,
+  margin: 200,
   width: 600,
   padding: 10,
   direction: "rtl",

@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import { Snackbar, Alert } from "@mui/material";
 import {
   GridRowsProp,
   GridRowModesModel,
@@ -22,6 +23,12 @@ import {
 } from "@mui/x-data-grid";
 import { Constraints } from "../../models/Shifts";
 import axios from "axios";
+
+interface AlertProps {
+  open: boolean;
+  severity: "success" | "error" | "info" | "warning";
+  message: string;
+}
 
 const ConstraintsTable = () => {
   const [rows, setRows] = useState<GridValidRowModel[]>([]);
@@ -40,7 +47,12 @@ const ConstraintsTable = () => {
       const id = Math.floor(Math.random() * 100);
       setRows((oldRows) => [
         ...oldRows,
-        { id, name: rows[0].name, soldierId: rows[0].soldierId, isNew: true },
+        {
+          id,
+          name: localStorage.getItem("SoldierName"),
+          soldierId: localStorage.getItem("SoldierID"),
+          isNew: true,
+        },
       ]);
       setRowModesModel((oldModel) => ({
         ...oldModel,
@@ -58,8 +70,34 @@ const ConstraintsTable = () => {
   }
 
   useEffect(() => {
+    fetch(
+      "http://localhost:3000/constraints/check/" +
+        localStorage.getItem("SoldierID")
+    )
+      .then((res) => {
+        return res.text();
+      })
+      .then((data) => {
+        const dataResponse = data === "true";
+
+        if (dataResponse) {
+          getPotentials();
+        } else {
+          axios.post(
+            "http://localhost:3000/constraints/" +
+              localStorage.getItem("SoldierID"),
+            {
+              name: localStorage.getItem("SoldierName"),
+              soldierId: localStorage.getItem("SoldierID"),
+              constraintList: [],
+            }
+          );
+        }
+      });
     const getPotentials = async () => {
-      const response = await fetch("http://localhost:3000/constraints/8701535");
+      const response = await fetch(
+        "http://localhost:3000/constraints/" + localStorage.getItem("SoldierID")
+      );
       const potentials: Constraints[] = await response.json();
 
       setRows(
@@ -73,10 +111,10 @@ const ConstraintsTable = () => {
         }))
       );
     };
-    getPotentials();
   }, []);
 
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
+  const [open, setOpen] = useState<AlertProps>({ open: false, severity: "success", message: "" });
 
   const handleRowEditStop: GridEventListener<"rowEditStop"> = (
     params,
@@ -96,19 +134,19 @@ const ConstraintsTable = () => {
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    rows.forEach((row) => 
-    {
-        if(row.id === id)
-        {
-            axios.delete("http://localhost:3000/constraints/" + row.soldierId + "/" + row._id)
-            .then((response) => {
-                console.log("DB update successful:", response.data);
-                // Do something with the response if needed
-              })
-              .catch((error) => {
-                console.error("Error updating DB:", error);
-              });
-        }
+    rows.forEach((row) => {
+      if (row.id === id) {
+        axios
+          .delete(
+            "http://localhost:3000/constraints/" + row.soldierId + "/" + row._id
+          )
+          .then((response) => {
+            setOpen({ open: true, severity: "success", message: "Constraint deleted successfully"});
+          })
+          .catch((error) => {
+            setOpen({ open: true, severity: "error", message: "Error updating DB"});
+          });
+      }
     });
     setRows(rows.filter((row) => row.id !== id));
   };
@@ -128,20 +166,16 @@ const ConstraintsTable = () => {
   const processRowUpdate = (newRow: GridRowModel) => {
     if (newRow.isNew) {
       axios
-        .post(
-          "http://localhost:3000/constraints/" + newRow.soldierId,
-          {
-            constraint: newRow.constraint,
-            startdate: newRow.startdate,
-            enddate: newRow.enddate,
-          }
-        )
+        .post("http://localhost:3000/constraints/constraint/" + newRow.soldierId, {
+          constraint: newRow.constraint,
+          startdate: newRow.startdate,
+          enddate: newRow.enddate,
+        })
         .then((response) => {
-          console.log("DB update successful:", response.data);
-          // Do something with the response if needed
+          setOpen({ open: true, severity: "success", message: "Constraint added successfully"});
         })
         .catch((error) => {
-          console.error("Error updating DB:", error);
+          setOpen({ open: true, severity: "error", message: "Error updating DB"});
         });
     } else {
       axios
@@ -157,11 +191,10 @@ const ConstraintsTable = () => {
           }
         )
         .then((response) => {
-          console.log("DB update successful:", response.data);
-          // Do something with the response if needed
+          setOpen({ open: true, severity: "success", message: "Constraint updated successfully"});
         })
         .catch((error) => {
-          console.error("Error updating DB:", error);
+          setOpen({ open: true, severity: "error", message: "Error updating DB"});
         });
     }
     const updatedRow = { ...newRow, isNew: false };
@@ -273,6 +306,13 @@ const ConstraintsTable = () => {
           toolbar: { setRows, setRowModesModel },
         }}
       />
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        open={open.open}
+        autoHideDuration={3000}
+      >
+        {<Alert severity={open.severity}>{open.message}</Alert>}
+      </Snackbar>
     </Box>
   );
 };
