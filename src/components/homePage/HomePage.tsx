@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <Grid container spacing={2} sx={{direction: "rtl"}}>
         <Grid item xs={6}>
-            <Box sx={{backgroundColor: "#2e7d32", height: "100%", borderRadius: 2, marginRight: 2}}>
+            <Box sx={{backgroundColor: "#557A95", height: "100%", borderRadius: 2, marginRight: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
                     שמירות שלי
                 </Typography>
@@ -14,7 +14,7 @@ const HomePage = () => {
             </Box>
         </Grid>
         <Grid item xs={6}>
-            <Box sx={{backgroundColor: "#d32f2f", height: "100%", borderRadius: 2, marginLeft: 2}}>
+            <Box sx={{backgroundColor: "#b1a296", height: "100%", borderRadius: 2, marginLeft: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
                     אילוצים שלי
                 </Typography>
@@ -22,14 +22,14 @@ const HomePage = () => {
             </Box>
         </Grid>
         <Grid item xs={6}>
-            <Box sx={{backgroundColor: "#0288d1", height: "100%", borderRadius: 2, marginRight: 2}}>
+            <Box sx={{backgroundColor: "#918f92", height: "100%", borderRadius: 2, marginRight: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
                     ברוכים הבאים למערכת האילוצים
                 </Typography>
             </Box>
         </Grid>
         <Grid item xs={6}>
-            <Box sx={{backgroundColor: "#ed6c02", height: "100%", borderRadius: 2, marginLeft: 2}}>
+            <Box sx={{backgroundColor: "#7395ae", height: "100%", borderRadius: 2, marginLeft: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
                     ברוכים הבאים למערכת האילוצים
                 </Typography>

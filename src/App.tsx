@@ -36,7 +36,7 @@ function App() {
       <BrowserRouter>
         <NavBar isLoggedIn={loggedIn} />
         <Routes>
-          <Route index element={<HomePage />} />
+          <Route path="/home-page" element={<HomePage />} />
           <Route path="/duties-table" element={<DutiesTable />} />
           <Route path="/constraints" element={<ConstraintsTable />} />
           <Route path="/edit" element={<EditPage />} />

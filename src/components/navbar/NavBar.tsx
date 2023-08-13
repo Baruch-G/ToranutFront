@@ -38,7 +38,7 @@ export default function NavBar(props: NavBarProps) {
         },
         {
             content: 'בית',
-            link: '/',
+            link: '/home-page',
             icon: <AppRegistrationIcon />,
             isVisible: props.isLoggedIn,
         },
@@ -63,7 +63,7 @@ export default function NavBar(props: NavBarProps) {
  
     ]
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
             <AppBar position="static" style={{ backgroundColor: '#343A40' }}>
                 <Toolbar>
                     {/* <img style={{ height: '40px' }} src={logo}></img> */}

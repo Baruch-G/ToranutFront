@@ -83,7 +83,7 @@ const DutiesTable = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#0288d1",
+        backgroundColor: "#557A95",
         height: "100%",
         borderRadius: 2,
         margin: 5,

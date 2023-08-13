@@ -58,7 +58,7 @@ const Login = (props: LoginProps) => {
         if (dataResponse) {
           localStorage.setItem("SoldierID", SoldierID.toString());
           props.setIsLoggedIn(true);
-          navigate(`/`);
+          navigate(`/home-page`);
         } else {
           setValues({ ...values, errVisible: true });
         }

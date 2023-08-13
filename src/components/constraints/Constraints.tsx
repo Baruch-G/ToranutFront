@@ -282,7 +282,7 @@ const ConstraintsTable = () => {
   return (
     <Box
     sx={{
-      backgroundColor: "#0288d1",
+      backgroundColor: "#b1a296",
       height: "100%",
       borderRadius: 2,
       marginTop: 4,
