@@ -16,7 +16,6 @@ interface LoginProps {
 
 const Login = (props: LoginProps) => {
   const navigate = useNavigate();
-  const [loginSuccess, setLoginSuccess] = useState(false);
   const [values, setValues] = useState<{
     errVisible: boolean;
     userName: string;
@@ -49,7 +48,7 @@ const Login = (props: LoginProps) => {
   };
 
   const userExist = async (SoldierID: number) => {
-    await fetch(`http://localhost:3000/potential/shifts/${SoldierID}`)
+    await fetch(`http://localhost:3000/potential/shifts/check/${SoldierID}`)
       .then((res) => {
         return res.text();
       })
@@ -59,7 +58,6 @@ const Login = (props: LoginProps) => {
         if (dataResponse) {
           localStorage.setItem("SoldierID", SoldierID.toString());
           props.setIsLoggedIn(true);
-          setLoginSuccess(true);
           navigate(`/`);
         } else {
           setValues({ ...values, errVisible: true });
@@ -115,16 +113,16 @@ const Login = (props: LoginProps) => {
             sx={{ direction: "rtl" }}
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
             open={values.errVisible}
-            autoHideDuration={1500}
+            autoHideDuration={2500}
             onClose={handleClose}
           >
             <Alert
               style={{
-                backgroundColor: "#d32f2f",
-                color: "white",
                 direction: "rtl",
               }}
               icon={<></>}
+              variant="filled"
+              severity="error"
             >
               המספר האישי הזה לא תקין או לא קיבל תורנות
             </Alert>
@@ -148,13 +146,6 @@ const Login = (props: LoginProps) => {
           ></div>
         </form>
       </Card>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "left" }}
-        open={loginSuccess}
-        autoHideDuration={4000}
-      >
-        {<Alert severity="success">This is a success message!</Alert>}
-      </Snackbar>
     </center>
   );
 };

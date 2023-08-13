@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
-import { Snackbar, Alert } from "@mui/material";
+import { Snackbar, Alert, Typography } from "@mui/material";
 import {
   GridRowsProp,
   GridRowModesModel,
@@ -62,7 +62,7 @@ const ConstraintsTable = () => {
 
     return (
       <GridToolbarContainer >
-        <Button sx={{marginRight:210, direction: "ltr"}} color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        <Button sx={{marginRight:205, direction: "ltr"}} color="primary" startIcon={<AddIcon />} onClick={handleClick}>
           הוסף אילוץ
         </Button>
       </GridToolbarContainer>
@@ -230,7 +230,7 @@ const ConstraintsTable = () => {
       width: 180,
       editable: true,
     },
-    { field: "constraint", headerName: "אילוץ", width: 250, editable: true },
+    { field: "constraint", headerName: "אילוץ", width: 1000, editable: true },
     {
       field: "actions",
       type: "actions",
@@ -281,12 +281,34 @@ const ConstraintsTable = () => {
 
   return (
     <Box
+    sx={{
+      backgroundColor: "#0288d1",
+      height: "100%",
+      borderRadius: 2,
+      marginTop: 4,
+      marginLeft: 5,
+      marginRight: 5,
+      marginBottom: 3,
+    }}
+  >
+    <Typography variant="h4"
+        style={{
+          color: "white",
+          fontWeight: "700px",
+          textAlign: "center",
+          marginTop: "20px",
+        }}>
+      אילוצים
+    </Typography>
+    <Box
       sx={{
         height: 700,
         direction: "rtl",
         backgroundColor: "white",
         borderRadius: "5px",
-        margin: "60px",
+        marginLeft: "40px",
+        marginRight: "40px", 
+        marginTop: "20px",
       }}
     >
       <DataGrid
@@ -304,14 +326,22 @@ const ConstraintsTable = () => {
         slotProps={{
           toolbar: { setRows, setRowModesModel },
         }}
+        initialState={{
+          pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+          },
+        }}
+        pageSizeOptions={[10]}
       />
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "left" }}
         open={open.open}
         autoHideDuration={3000}
       >
-        {<Alert severity={open.severity}>{open.message}</Alert>}
+        {<Alert variant="filled" severity={open.severity}>{open.message}</Alert>}
       </Snackbar>
+    </Box>
+    <Typography variant="h6" style={{ color: "white", height: "40px", marginBottom:2, fontWeight: "700px" }} />
     </Box>
   );
 };

@@ -8,6 +8,7 @@ import ConstraintsTable from "./components/constraints/Constraints";
 import { useState, useEffect } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HomePage from "./components/homePage/HomePage";
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
       <BrowserRouter>
         <NavBar isLoggedIn={loggedIn} />
         <Routes>
-          <Route index element={<div>עמוד בית</div>} />
+          <Route index element={<HomePage />} />
           <Route path="/duties-table" element={<DutiesTable />} />
           <Route path="/constraints" element={<ConstraintsTable />} />
           <Route path="/edit" element={<EditPage />} />
@@ -54,7 +55,8 @@ function App() {
       >
         {
           <Alert
-            style={{ backgroundColor: "#2e7d32", color: "white" }}
+            variant="filled"
+            severity="success"
             icon={<CheckCircleOutlineIcon sx={{ color: "white" }} />}
           >
             התחברת בהצלחה
