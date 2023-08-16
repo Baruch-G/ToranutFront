@@ -4,6 +4,7 @@ import { GridColDef, GridValidRowModel, GridValueGetterParams } from "@mui/x-dat
 import { Constraints } from "../../../models/Shifts";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from "@mui/material";
+import { all } from "axios";
 
 const dateFormat = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
@@ -42,18 +43,22 @@ const MyConstraintsTable = () => {
             const response = await fetch(
               "http://localhost:3000/constraints/" + localStorage.getItem("SoldierID")
             );
-            const potentials: Constraints[] = await response.json();
+            const constraints: Constraints[] = await response.json();
+            const allConstraints: GridValidRowModel[] = [];
       
-            setRows(
-              potentials[0].constraintList.map((item) => ({
+            constraints.forEach((constraint) => {              
+              const constraintRows = constraint.constraintList.map((item) => ({
                 ...item,
                 id: item["_id"],
                 startdate: new Date(item["startdate"]),
                 enddate: new Date(item["enddate"]),
-                name: potentials[0]["name"],
-                soldierId: potentials[0]["soldierId"],
-              }))
-            );
+                name: constraint["name"],
+                soldierId: constraint["soldierId"],
+              }));
+
+              allConstraints.push(...constraintRows);
+            });
+              setRows(allConstraints);
           };
         getPotentials()
     }, [])
@@ -70,7 +75,7 @@ const MyConstraintsTable = () => {
             }
         </div>
         </Box>
-    )
+    );
 }
 
 export default MyConstraintsTable

@@ -13,6 +13,7 @@ import HomePage from "./components/homePage/HomePage";
 
 function App() {
   const [loggedIn, setloggedIn] = useState(false);
+  const [admin, setAdmin] = useState(false); 
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   useEffect(() => {
@@ -21,6 +22,19 @@ function App() {
     if (localStorage.getItem("SoldierID")) {
       setloggedIn(true);
     }
+
+    const checkAdmin  = async () => { 
+      await fetch(`http://localhost:3000/admin/check/${localStorage.getItem("SoldierID")}`)
+        .then((res) => {
+          return res.text();
+        })
+        .then((data) => {
+          const dataResponse = data === "true";
+          setAdmin(dataResponse);
+        });
+    };
+
+    checkAdmin();
   }, [loggedIn]);
 
   const handleOpen = () => {
@@ -34,9 +48,9 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <NavBar isLoggedIn={loggedIn} />
+        <NavBar isLoggedIn={loggedIn} isAdmin={admin} />
         <Routes>
-          <Route path="/home-page" element={<HomePage />} />
+          <Route path="/home-page" element={<HomePage isAdmin={admin} />} />
           <Route path="/duties-table" element={<DutiesTable />} />
           <Route path="/constraints" element={<ConstraintsTable />} />
           <Route path="/edit" element={<EditPage />} />

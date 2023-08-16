@@ -6,19 +6,13 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-import SearchIcon from '@mui/icons-material/Search'
 import LoginIcon from '@mui/icons-material/Login'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import InventoryIcon from '@mui/icons-material/Inventory'
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
-import AddCardIcon from '@mui/icons-material/AddCard'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import ListAltIcon from '@mui/icons-material/ListAlt'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import './NavBar.css'
 
 interface NavBarProps {
     isLoggedIn: boolean;
+    isAdmin: boolean;
 }
 
 
@@ -52,7 +46,7 @@ export default function NavBar(props: NavBarProps) {
             content: 'עריכה',
             link: '/edit',
             icon: <AppRegistrationIcon />,
-            isVisible: props.isLoggedIn,
+            isVisible: props.isLoggedIn && props.isAdmin,
         },
         {
             content: 'אילוצים',

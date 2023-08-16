@@ -2,13 +2,17 @@ import {Grid, Box, Typography} from "@mui/material";
 import MyDutiesTable from "../myTables/myDutiesTable/MyDutiesTable";
 import MyConstraintsTable from "../myTables/myConstraintsTable/myConstraintsTable";
 
-const HomePage = () => {
+interface HomePageProps {
+    isAdmin: boolean;
+}
+
+const HomePage = (props: HomePageProps) => {
   return (
     <Grid container spacing={2} sx={{direction: "rtl"}}>
         <Grid item xs={6}>
             <Box sx={{backgroundColor: "#557A95", height: "100%", borderRadius: 2, marginRight: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
-                    שמירות שלי
+                    {props.isAdmin ? "טבלת שמירות" : "טבלת שמירות שלי"}
                 </Typography>
                 <MyDutiesTable/>
             </Box>
@@ -16,7 +20,7 @@ const HomePage = () => {
         <Grid item xs={6}>
             <Box sx={{backgroundColor: "#b1a296", height: "100%", borderRadius: 2, marginLeft: 2}}>
                 <Typography sx={{direction: "rtl", margin: 2, color: "white"}} variant="h4">
-                    אילוצים שלי
+                    {props.isAdmin ? "טבלת אילוצים" : "טבלת אילוצים שלי"}
                 </Typography>
                 <MyConstraintsTable />
             </Box>

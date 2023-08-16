@@ -69,13 +69,22 @@ const columns: GridColDef[] = [
 const DutiesTable = () => {
   const usersTableContainer = useRef<HTMLDivElement>(null); // Add the type here
 
-  const [rows, setRows] = useState<Potential[]>([]);
+  const [rows, setRows] = useState<GridValidRowModel[]>([]);
 
   useEffect(() => {
     const getPotentials = async () => {
       const response = await fetch("http://localhost:3000/potential");
       const potentials: Potential[] = await response.json();
-      setRows(potentials);
+
+      const allShifts: GridValidRowModel[] = [];
+      
+      potentials.forEach((potential) => {
+        potential.shifts.forEach((shift) => {
+          allShifts.push(shift);  
+        });
+      });
+        
+      setRows(allShifts);
     };
     getPotentials();
   }, []);
@@ -98,7 +107,7 @@ const DutiesTable = () => {
           marginTop: "40px",
         }}
       >
-        תורנויות פוטנציאליות
+        כל התורנויות בפוטנציאל
       </Typography>
       <div
         ref={usersTableContainer}
@@ -112,7 +121,7 @@ const DutiesTable = () => {
         {rows.length ? (
           <GenericTable
             checkboxSelection={true}
-            items={rows[0].shifts}
+            items={rows}
             columns={columns}
           />
         ) : (

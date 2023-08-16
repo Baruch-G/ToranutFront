@@ -61,8 +61,13 @@ const ConstraintsTable = () => {
     };
 
     return (
-      <GridToolbarContainer >
-        <Button sx={{marginRight:205, direction: "ltr"}} color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+      <GridToolbarContainer>
+        <Button
+          sx={{ marginRight: 205, direction: "ltr" }}
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClick}
+        >
           הוסף אילוץ
         </Button>
       </GridToolbarContainer>
@@ -98,23 +103,31 @@ const ConstraintsTable = () => {
       const response = await fetch(
         "http://localhost:3000/constraints/" + localStorage.getItem("SoldierID")
       );
-      const potentials: Constraints[] = await response.json();
+      const constraints: Constraints[] = await response.json();
+      const allConstraints: GridValidRowModel[] = [];
 
-      setRows(
-        potentials[0].constraintList.map((item) => ({
+      constraints.forEach((constraint) => {
+        const constraintRows = constraint.constraintList.map((item) => ({
           ...item,
           id: item["_id"],
           startdate: new Date(item["startdate"]),
           enddate: new Date(item["enddate"]),
-          name: potentials[0]["name"],
-          soldierId: potentials[0]["soldierId"],
-        }))
-      );
+          name: constraint["name"],
+          soldierId: constraint["soldierId"],
+        }));
+
+        allConstraints.push(...constraintRows);
+      });
+      setRows(allConstraints);
     };
   }, []);
 
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
-  const [open, setOpen] = useState<AlertProps>({ open: false, severity: "success", message: "" });
+  const [open, setOpen] = useState<AlertProps>({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   const handleRowEditStop: GridEventListener<"rowEditStop"> = (
     params,
@@ -141,10 +154,18 @@ const ConstraintsTable = () => {
             "http://localhost:3000/constraints/" + row.soldierId + "/" + row._id
           )
           .then((response) => {
-            setOpen({ open: true, severity: "success", message: "Constraint deleted successfully"});
+            setOpen({
+              open: true,
+              severity: "success",
+              message: "Constraint deleted successfully",
+            });
           })
           .catch((error) => {
-            setOpen({ open: true, severity: "error", message: "Error updating DB"});
+            setOpen({
+              open: true,
+              severity: "error",
+              message: "Error updating DB",
+            });
           });
       }
     });
@@ -166,16 +187,27 @@ const ConstraintsTable = () => {
   const processRowUpdate = (newRow: GridRowModel) => {
     if (newRow.isNew) {
       axios
-        .post("http://localhost:3000/constraints/constraint/" + newRow.soldierId, {
-          constraint: newRow.constraint,
-          startdate: newRow.startdate,
-          enddate: newRow.enddate,
-        })
+        .post(
+          "http://localhost:3000/constraints/constraint/" + newRow.soldierId,
+          {
+            constraint: newRow.constraint,
+            startdate: newRow.startdate,
+            enddate: newRow.enddate,
+          }
+        )
         .then((response) => {
-          setOpen({ open: true, severity: "success", message: "Constraint added successfully"});
+          setOpen({
+            open: true,
+            severity: "success",
+            message: "Constraint added successfully",
+          });
         })
         .catch((error) => {
-          setOpen({ open: true, severity: "error", message: "Error updating DB"});
+          setOpen({
+            open: true,
+            severity: "error",
+            message: "Error updating DB",
+          });
         });
     } else {
       axios
@@ -191,10 +223,18 @@ const ConstraintsTable = () => {
           }
         )
         .then((response) => {
-          setOpen({ open: true, severity: "success", message: "Constraint updated successfully"});
+          setOpen({
+            open: true,
+            severity: "success",
+            message: "Constraint updated successfully",
+          });
         })
         .catch((error) => {
-          setOpen({ open: true, severity: "error", message: "Error updating DB"});
+          setOpen({
+            open: true,
+            severity: "error",
+            message: "Error updating DB",
+          });
         });
     }
     const updatedRow = { ...newRow, isNew: false };
@@ -281,67 +321,81 @@ const ConstraintsTable = () => {
 
   return (
     <Box
-    sx={{
-      backgroundColor: "#b1a296",
-      height: "100%",
-      borderRadius: 2,
-      marginTop: 4,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 3,
-    }}
-  >
-    <Typography variant="h4"
+      sx={{
+        backgroundColor: "#b1a296",
+        height: "100%",
+        borderRadius: 2,
+        marginTop: 4,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 3,
+      }}
+    >
+      <Typography
+        variant="h4"
         style={{
           color: "white",
           fontWeight: "700px",
           textAlign: "center",
           marginTop: "20px",
-        }}>
-      אילוצים
-    </Typography>
-    <Box
-      sx={{
-        height: 700,
-        direction: "rtl",
-        backgroundColor: "white",
-        borderRadius: "5px",
-        marginLeft: "40px",
-        marginRight: "40px", 
-        marginTop: "20px",
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowThreshold={5}
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar,
         }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-        initialState={{
-          pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10]}
-      />
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "left" }}
-        open={open.open}
-        autoHideDuration={3000}
       >
-        {<Alert variant="filled" severity={open.severity}>{open.message}</Alert>}
-      </Snackbar>
-    </Box>
-    <Typography variant="h6" style={{ color: "white", height: "40px", marginBottom:2, fontWeight: "700px" }} />
+        אילוצים
+      </Typography>
+      <Box
+        sx={{
+          height: 671,
+          direction: "rtl",
+          backgroundColor: "white",
+          borderRadius: "5px",
+          marginLeft: "40px",
+          marginRight: "40px",
+          marginTop: "20px",
+        }}
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          rowThreshold={5}
+          rowModesModel={rowModesModel}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          slots={{
+            toolbar: EditToolbar,
+          }}
+          slotProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[10]}
+        />
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          open={open.open}
+          autoHideDuration={3000}
+        >
+          {
+            <Alert variant="filled" severity={open.severity}>
+              {open.message}
+            </Alert>
+          }
+        </Snackbar>
+      </Box>
+      <Typography
+        variant="h6"
+        style={{
+          color: "white",
+          height: "40px",
+          marginBottom: 2,
+          fontWeight: "700px",
+        }}
+      />
     </Box>
   );
 };
