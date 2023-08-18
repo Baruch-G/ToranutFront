@@ -274,7 +274,7 @@ const ConstraintsTable = () => {
     {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
+      headerName: "",
       width: 100,
       cellClassName: "actions",
       getActions: ({ id }) => {
