@@ -100,7 +100,6 @@ const MyDutiesTable = (props: MyDutiesTableProps) => {
         marginRight: "20px",
         marginTop: "20px",
         marginBottom: "20px",
-        height: "100%",
       }}
       className="duties-table"
     >

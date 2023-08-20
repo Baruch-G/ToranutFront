@@ -95,7 +95,6 @@ const DutiesSwapModal = (props: DutiesSwapModalProps) => {
   return (
     <Modal
       open={props.open}
-      onClose={props.handleClose}
       sx={{
         position: "absolute" as "absolute",
         margin: "auto",
