@@ -79,14 +79,15 @@ const DutiesSwapModal = (props: DutiesSwapModalProps) => {
   );
 
   const handleSwap = () => {
+    
+    
     if (props.rowToSwap && selectedRows) {
+      console.log(selectedRows[0]);
+      console.log(props.rowToSwap);
       axios.post("http://localhost:3000/pending/swap", {
-        shift1Id: selectedRows[0]._id,
-        shift2Id: props.rowToSwap._id,
-        soldier1Id: selectedRows[0].Executor.soldierId,
-        soldier2Id: props.rowToSwap.Executor.soldierId,
-        soldier1Name: selectedRows[0].Executor.name,
-        soldier2Name: props.rowToSwap.Executor.name,
+        shift1: selectedRows[0],
+        shift2: props.rowToSwap,
+        status: "pending",
       });
     }
     props.handleClose();
