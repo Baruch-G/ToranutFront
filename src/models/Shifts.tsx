@@ -12,13 +12,13 @@ export interface Soldier {
 }
 
 export interface Shift {
+    _id: string;
     ShiftType: ShiftType;
     Executor: Soldier;
     Substitute: Soldier;
     PointMultiplier: number;
     startdate: string;
     enddate: string;
-    id: string;
 }
 
 export interface Potential {
@@ -40,4 +40,11 @@ export interface Constraint {
     constraint: string,
     startdate: string,
     enddate: string
+}
+
+export interface Swaps {
+    _id: string,
+    shift1: Shift,
+    shift2: Shift,
+    status: string,
 }

@@ -57,7 +57,7 @@ export default function NavBar(props: NavBarProps) {
  
     ]
     return (
-        <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
+        <Box sx={{ flexGrow: 1, marginBottom: 1 }}>
             <AppBar position="static" style={{ backgroundColor: '#343A40' }}>
                 <Toolbar>
                     {/* <img style={{ height: '40px' }} src={logo}></img> */}
