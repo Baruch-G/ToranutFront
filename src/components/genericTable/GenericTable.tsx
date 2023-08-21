@@ -17,6 +17,7 @@ interface GenericTableItems {
   pageSize?: number;
   footer?: boolean;
   rowSelected?: (row: GridValidRowModel) => void;
+  height?: number;
 }
 
 const GenericTable = (props: GenericTableItems) => {
@@ -51,6 +52,7 @@ const GenericTable = (props: GenericTableItems) => {
         onRowSelectionModelChange={(ids) =>
           props.checkboxSelection ? onRowsSelectionHandler(ids) : null
         }
+        sx={{height: props.height ? props.height : "auto"}}
       />
     </div>
   );

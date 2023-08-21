@@ -71,7 +71,7 @@ const MyConstraintsTable = () => {
             marginTop: '20px',
         }} className="duties-table">
             {
-                rows.length ? <GenericTable pageSize={5} items={rows} columns={columns} /> : <center style={{ color: "white", fontWeight: "700px" }}><CircularProgress /></center>
+                rows.length ? <GenericTable height={371} pageSize={5} items={rows} columns={columns} /> : <center style={{ color: "white", fontWeight: "700px" }}><CircularProgress /></center>
             }
         </div>
         </Box>

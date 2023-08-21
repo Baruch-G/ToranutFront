@@ -110,6 +110,7 @@ const MyDutiesTable = (props: MyDutiesTableProps) => {
           columns={columns}
           checkboxSelection={props.selectable}
           rowSelected={props.rowSelected}
+          height={371}
         />
       ) : (
         <CircularProgress />

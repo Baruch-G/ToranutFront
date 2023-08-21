@@ -10,7 +10,7 @@ interface HomePageProps {
 const HomePage = (props: HomePageProps) => {
   return (
     <Grid container spacing={2} sx={{ direction: "rtl" }}>
-      <Grid item xs={6}>
+      <Grid item xs={6} sx={{height: 468}}>
         <Box
           sx={{
             backgroundColor: "#557A95",
@@ -46,67 +46,27 @@ const HomePage = (props: HomePageProps) => {
           <MyConstraintsTable />
         </Box>
       </Grid>
-      {!props.isAdmin ? (
-        <>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                backgroundColor: "#918f92",
-                height: "100%",
-                borderRadius: 2,
-                marginRight: 2,
-              }}
-            >
-              <Typography
-                sx={{ direction: "rtl", margin: 2, color: "white" }}
-                variant="h4"
-              >
-                ברוכים הבאים למערכת האילוצים
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                backgroundColor: "#7395ae",
-                height: "100%",
-                borderRadius: 2,
-                marginLeft: 2,
-              }}
-            >
-              <Typography
-                sx={{ direction: "rtl", margin: 2, color: "white" }}
-                variant="h4"
-              >
-                ברוכים הבאים למערכת האילוצים
-              </Typography>
-            </Box>
-          </Grid>
-        </>
-      ) : (
-        <>
-          <Grid item xs={8}>
-              <SwapsTable />
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                backgroundColor: "#7395ae",
-                height: "100%",
-                borderRadius: 2,
-                marginLeft: 2,
-              }}
-            >
-              <Typography
-                sx={{ direction: "rtl", margin: 2, color: "white" }}
-                variant="h4"
-              >
-                ברוכים הבאים למערכת האילוצים
-              </Typography>
-            </Box>
-          </Grid>
-        </>
-      )}
+
+      <Grid item xs={props.isAdmin ? 7.6 : 7.8} sx={{height: 375}} >
+        <SwapsTable isAdmin={props.isAdmin} />
+      </Grid>
+      <Grid item xs={props.isAdmin ? 4.4 : 4.2}>
+        <Box
+          sx={{
+            backgroundColor: "#7395ae",
+            height: "100%",
+            borderRadius: 2,
+            marginLeft: 2,
+          }}
+        >
+          <Typography
+            sx={{ direction: "rtl", margin: 2, color: "white" }}
+            variant="h4"
+          >
+            ברוכים הבאים למערכת האילוצים
+          </Typography>
+        </Box>
+      </Grid>
     </Grid>
   );
 };
