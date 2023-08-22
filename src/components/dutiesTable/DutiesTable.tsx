@@ -111,14 +111,16 @@ const DutiesTable = () => {
       headerName: "",
       width: 100,
       cellClassName: "actions",
-      getActions: ({ id }) => {
+      getActions: (params) => {
+        const isMyDuty = params.row.Executor.soldierId == localStorage.getItem("SoldierID");
         return [
           <GridActionsCellItem
             icon={<SwapHorizIcon />}
             label="החלפת תורנות"
             className="textPrimary"
-            onClick={handleSwapClick(id)}
+            onClick={handleSwapClick(params.id)}
             color="inherit"
+            disabled={isMyDuty}
           />,
         ];
       },
