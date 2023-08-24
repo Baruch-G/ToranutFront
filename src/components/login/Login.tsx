@@ -28,6 +28,7 @@ const Login = (props: LoginProps) => {
     if (props.isLoggedIn) {
       localStorage.removeItem("SoldierID");
       localStorage.removeItem("SoldierName");
+      localStorage.removeItem("SoldierPopulation");
       props.setIsLoggedIn(false);
     }
   }, [props.isLoggedIn]);
@@ -69,6 +70,13 @@ const Login = (props: LoginProps) => {
       })
       .then((data) => {
         localStorage.setItem("SoldierName", data);
+      });
+    await fetch(`http://localhost:3000/population/${SoldierID}`)
+      .then((res) => {
+        return res.text();
+      })
+      .then((data) => {
+        localStorage.setItem("SoldierPopulation", data);
       });
   };
 

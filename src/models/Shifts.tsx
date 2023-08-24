@@ -15,7 +15,8 @@ export interface Shift {
     _id: string;
     ShiftType: ShiftType;
     Executor: Soldier;
-    Substitute: Soldier;
+    FirstSubstitute: Soldier;
+    SecondSubstitute: Soldier;
     PointMultiplier: number;
     startdate: string;
     enddate: string;

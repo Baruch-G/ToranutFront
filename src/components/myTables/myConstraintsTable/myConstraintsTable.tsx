@@ -9,12 +9,12 @@ import { all } from "axios";
 const dateFormat = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
 const columns: GridColDef[] = [
-    { field: "name", headerName: "שם", width: 180 },
+    { field: "name", headerName: "שם", width: 130 },
     {
       field: "soldierId",
       headerName: "מספר אישי",
       type: "id",
-      width: 100,
+      width: 80,
       align: "left",
       headerAlign: "left"
     },
@@ -22,13 +22,13 @@ const columns: GridColDef[] = [
       field: "startdate",
       headerName: "תאריך התחלה אילוץ",
       type: "date",
-      width: 180
+      width: 120
     },
     {
       field: "enddate",
       headerName: "תאריך סיום אילוץ",
       type: "date",
-      width: 180
+      width: 120
     },
     { field: "constraint", headerName: "אילוץ", width: 250}
 ];

@@ -44,31 +44,16 @@ const DutiesSwapModal = (props: DutiesSwapModalProps) => {
       sortable: false,
     },
     {
-      field: "SubstituteName",
-      headerName: "עתודה",
-      width: 130,
-      valueGetter: (params: GridValueGetterParams) =>
-        params.row.Substitute ? params.row.Substitute.name : "",
-    },
-    {
-      field: "Substitute",
-      headerName: "מספר אישי עתודה",
-      width: 130,
-      valueGetter: (params: GridValueGetterParams) =>
-        params.row.Substitute ? params.row.Substitute.soldierId : "",
-      sortable: false,
-    },
-    {
       field: "startdate",
       headerName: "תאריך התחלה",
-      width: 105,
+      width: 130,
       valueGetter: (params: GridValueGetterParams) =>
         params.row.startdate ? dateFormat(new Date(params.row.startdate)) : "",
     },
     {
       field: "enddate",
       headerName: "תאריך סיום",
-      width: 105,
+      width: 130,
       valueGetter: (params: GridValueGetterParams) =>
         params.row.enddate ? dateFormat(new Date(params.row.enddate)) : "",
     },
@@ -82,8 +67,6 @@ const DutiesSwapModal = (props: DutiesSwapModalProps) => {
     
     
     if (props.rowToSwap && selectedRows) {
-      console.log(selectedRows[0]);
-      console.log(props.rowToSwap);
       axios.post("http://localhost:3000/pending/swap", {
         shift1: selectedRows[0],
         shift2: props.rowToSwap,

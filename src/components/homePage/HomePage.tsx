@@ -10,7 +10,7 @@ interface HomePageProps {
 const HomePage = (props: HomePageProps) => {
   return (
     <Grid container spacing={2} sx={{ direction: "rtl" }}>
-      <Grid item xs={6} sx={{height: 468}}>
+      <Grid item xs={7} sx={{height: 468}}>
         <Box
           sx={{
             backgroundColor: "#557A95",
@@ -28,7 +28,7 @@ const HomePage = (props: HomePageProps) => {
           <MyDutiesTable />
         </Box>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <Box
           sx={{
             backgroundColor: "#b1a296",

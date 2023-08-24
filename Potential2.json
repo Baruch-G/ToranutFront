@@ -4,17 +4,17 @@
             "ShiftType": {
                 "name": "שער ירושלים",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Yael Levi",
                 "soldierId": 9941932,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Abigail Gavay",
                 "soldierId": 9365952,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2023-08-22T12:00:43.006000+00:00",
@@ -44,17 +44,17 @@
             "ShiftType": {
                 "name": "שירות מיוחד",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Nili Yafe",
                 "soldierId": 8285031,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Shira Ben-David",
                 "soldierId": 9895280,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2023-08-30T12:00:43.006000+00:00",
@@ -64,17 +64,17 @@
             "ShiftType": {
                 "name": "קדר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Miriam HaBa'ah",
                 "soldierId": 8276502,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Adi Katz",
                 "soldierId": 8605160,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.3,
             "startdate": "2023-09-05T12:00:43.006000+00:00",
@@ -104,17 +104,17 @@
             "ShiftType": {
                 "name": "רסר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Rinat Giva",
                 "soldierId": 8168192,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Noa Oren",
                 "soldierId": 8669741,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.3,
             "startdate": "2023-09-15T12:00:43.006000+00:00",
@@ -124,17 +124,17 @@
             "ShiftType": {
                 "name": "נגד תורן",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Yossi Cohen",
                 "soldierId": 8398712,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Omer Nitzan",
                 "soldierId": 9280391,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.5,
             "startdate": "2023-09-18T12:00:43.006000+00:00",
@@ -164,17 +164,17 @@
             "ShiftType": {
                 "name": "קצין תורן",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Moshe Plug",
                 "soldierId": 8898376,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Tal Gur",
                 "soldierId": 9455965,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.5,
             "startdate": "2023-09-24T12:00:43.006000+00:00",
@@ -184,17 +184,17 @@
             "ShiftType": {
                 "name": "שירות מיוחד",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Netta Mandelblit",
                 "soldierId": 9484406,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Noa Goldberger",
                 "soldierId": 8055996,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1,
             "startdate": "2023-09-27T12:00:43.006000+00:00",
@@ -204,17 +204,17 @@
             "ShiftType": {
                 "name": "נגד תורן",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Roy Kish",
                 "soldierId": 9222139,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Noa Ron",
                 "soldierId": 9182927,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.3,
             "startdate": "2023-09-30T12:00:43.006000+00:00",
@@ -244,17 +244,17 @@
             "ShiftType": {
                 "name": "קדר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Eli Mizrahi",
                 "soldierId": 8592027,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Omer Nitzan",
                 "soldierId": 9248446,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2023-10-10T12:00:43.006000+00:00",
@@ -264,17 +264,17 @@
             "ShiftType": {
                 "name": "שער ירושלים",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Noa Ron",
                 "soldierId": 9781099,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Abigail Levi",
                 "soldierId": 8310254,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2.5,
             "startdate": "2023-10-16T12:00:43.006000+00:00",
@@ -404,17 +404,17 @@
             "ShiftType": {
                 "name": "מטוס",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Tamir Berlin",
                 "soldierId": 8483899,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Roy Kish",
                 "soldierId": 9222139,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2023-11-14T12:00:43.006000+00:00",
@@ -424,17 +424,17 @@
             "ShiftType": {
                 "name": "מטוס",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Shira Ben-David",
                 "soldierId": 9448135,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Noa Goldberger",
                 "soldierId": 9274478,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2023-11-20T12:00:43.006000+00:00",
@@ -484,17 +484,17 @@
             "ShiftType": {
                 "name": "רסר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Eitan Dror",
                 "soldierId": 9574501,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Lea Shapira",
                 "soldierId": 8179003,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1,
             "startdate": "2023-12-03T12:00:43.006000+00:00",
@@ -584,17 +584,17 @@
             "ShiftType": {
                 "name": "קדר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Moshe Plug",
                 "soldierId": 8314907,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Dafna Kadmi",
                 "soldierId": 8780258,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2.5,
             "startdate": "2023-12-21T12:00:43.006000+00:00",
@@ -704,17 +704,17 @@
             "ShiftType": {
                 "name": "נגד תורן",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Daniel HaTzair",
                 "soldierId": 8975628,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Roy Kish",
                 "soldierId": 9222139,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2,
             "startdate": "2024-01-14T12:00:43.006000+00:00",
@@ -724,17 +724,17 @@
             "ShiftType": {
                 "name": "שירות מיוחד",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Yossi Cohen",
                 "soldierId": 9390323,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Dafna Kadmi",
                 "soldierId": 9776534,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1,
             "startdate": "2024-01-20T12:00:43.006000+00:00",
@@ -824,17 +824,17 @@
             "ShiftType": {
                 "name": "שירות מיוחד",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Tamir Berlin",
                 "soldierId": 9487803,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Dafna Kadmi",
                 "soldierId": 9510378,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1,
             "startdate": "2024-02-08T12:00:43.006000+00:00",
@@ -844,17 +844,17 @@
             "ShiftType": {
                 "name": "שער ירושלים",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Yishai Barak",
                 "soldierId": 8177159,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Adi Katz",
                 "soldierId": 8727030,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1.5,
             "startdate": "2024-02-11T12:00:43.006000+00:00",
@@ -864,17 +864,17 @@
             "ShiftType": {
                 "name": "שער ירושלים",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Ila Kinan",
                 "soldierId": 8999222,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Adam Cohen",
                 "soldierId": 9439056,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2.5,
             "startdate": "2024-02-16T12:00:43.006000+00:00",
@@ -944,17 +944,17 @@
             "ShiftType": {
                 "name": "קדר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Or Carmeli",
                 "soldierId": 9151931,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Ila Kinan",
                 "soldierId": 8764664,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 1,
             "startdate": "2024-03-02T12:00:43.006000+00:00",
@@ -984,17 +984,17 @@
             "ShiftType": {
                 "name": "רסר",
                 "pointValue": 12,
-                "population": "private"
+                "population": "veteran"
             },
             "Executor": {
                 "name": "Tal Gur",
                 "soldierId": 9455965,
-                "population": "private"
+                "population": "veteran"
             },
             "Substitute": {
                 "name": "Amit Gershon",
                 "soldierId": 8754207,
-                "population": "private"
+                "population": "veteran"
             },
             "PointMultiplier": 2.5,
             "startdate": "2024-03-10T12:00:43.006000+00:00",
@@ -1003,5 +1003,6 @@
     ],
     "name": "חציון ינואר 2024",
     "startdate": "2024-01-01T12:00:43.006Z",
-    "enddate": "2024-06-30T12:00:43.006Z"
+    "enddate": "2024-06-30T12:00:43.006Z",
+    "population": "veteran"
 }

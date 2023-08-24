@@ -7,7 +7,7 @@ import {
   GridValidRowModel,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
-import { Potential } from "../../models/Shifts";
+import { Potential, Shift } from "../../models/Shifts";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box, Typography } from "@mui/material";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -24,18 +24,9 @@ const DutiesTable = () => {
 
   useEffect(() => {
     const getPotentials = async () => {
-      const response = await fetch("http://localhost:3000/potential");
-      const potentials: Potential[] = await response.json();
-
-      const allShifts: GridValidRowModel[] = [];
-
-      potentials.forEach((potential) => {
-        potential.shifts.forEach((shift) => {
-          allShifts.push(shift);
-        });
-      });
-
-      setRows(allShifts);
+      const response = await fetch(`http://localhost:3000/potential/shifts/population/${localStorage.getItem("SoldierPopulation")}`);
+      const shifts: Shift[] = await response.json();
+      setRows(shifts);
     };
     getPotentials();
   }, []);
@@ -77,18 +68,33 @@ const DutiesTable = () => {
       sortable: false,
     },
     {
-      field: "SubstituteName",
-      headerName: "עתודה",
+      field: "FirstSubstituteName",
+      headerName: "עתודה ראשונה",
       width: 130,
       valueGetter: (params: GridValueGetterParams) =>
-        params.row.Substitute ? params.row.Substitute.name : "",
+        params.row.FirstSubstitute ? params.row.FirstSubstitute.name : "",
     },
     {
-      field: "Substitute",
-      headerName: "מספר אישי עתודה",
+      field: "FirstSubstituteId",
+      headerName: 'מ"א עתודה ראשונה',
       width: 130,
       valueGetter: (params: GridValueGetterParams) =>
-        params.row.Substitute ? params.row.Substitute.soldierId : "",
+        params.row.FirstSubstitute ? params.row.FirstSubstitute.soldierId : "",
+      sortable: false,
+    },
+    {
+      field: "SecondSubstituteName",
+      headerName: "עתודה שניה",
+      width: 130,
+      valueGetter: (params: GridValueGetterParams) =>
+        params.row.SecondSubstitute ? params.row.SecondSubstitute.name : "",
+    },
+    {
+      field: "SecondSubstituteId",
+      headerName: 'מ"א עתודה שניה',
+      width: 130,
+      valueGetter: (params: GridValueGetterParams) =>
+        params.row.SecondSubstitute ? params.row.SecondSubstitute.soldierId : "",
       sortable: false,
     },
     {
@@ -101,7 +107,7 @@ const DutiesTable = () => {
     {
       field: "enddate",
       headerName: "תאריך סיום",
-      width: 855,
+      width: 590,
       valueGetter: (params: GridValueGetterParams) =>
         params.row.enddate ? dateFormat(new Date(params.row.enddate)) : "",
     },

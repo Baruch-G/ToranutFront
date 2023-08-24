@@ -21,7 +21,7 @@ import {
   GridRowEditStopReasons,
   GridValidRowModel,
 } from "@mui/x-data-grid";
-import { Constraints } from "../../models/Shifts";
+import { Constraints, Shift } from "../../models/Shifts";
 import axios from "axios";
 
 interface AlertProps {
@@ -30,7 +30,7 @@ interface AlertProps {
   message: string;
 }
 
-const ConstraintsTable = () => {
+const EditShifts = () => {
   const [rows, setRows] = useState<GridValidRowModel[]>([]);
 
   interface EditToolbarProps {
@@ -46,13 +46,23 @@ const ConstraintsTable = () => {
     const handleClick = () => {
       const id = Math.floor(Math.random() * 100);
       setRows((oldRows) => [
-        ...oldRows,
         {
-          id,
-          name: localStorage.getItem("SoldierName"),
-          soldierId: localStorage.getItem("SoldierID"),
-          isNew: true,
+            id,
+            shiftName: "",
+            shiftPointValue: 0,
+            shiftPopulation: localStorage.getItem("SoldierPopulation"),
+            executorName: "",
+            executorId: 0,
+            firstSubstituteName: "",
+            firstSubstituteId: 0,
+            secondSubstituteName: "",       
+            secondSubstituteId: 0,
+            pointMultiplier: 0,
+            startdate: new Date(),
+            enddate: new Date(),
+            isNew: true,
         },
+        ...oldRows,
       ]);
       setRowModesModel((oldModel) => ({
         ...oldModel,
@@ -63,7 +73,7 @@ const ConstraintsTable = () => {
     return (
       <GridToolbarContainer>
         <Button
-          sx={{ marginRight: 205, direction: "ltr" }}
+          sx={{ direction: "ltr" }}
           color="primary"
           startIcon={<AddIcon />}
           onClick={handleClick}
@@ -75,52 +85,34 @@ const ConstraintsTable = () => {
   }
 
   useEffect(() => {
-    fetch(
-      "http://localhost:3000/constraints/check/" +
-        localStorage.getItem("SoldierID")
-    )
-      .then((res) => {
-        return res.text();
-      })
-      .then((data) => {
-        const dataResponse = data === "true";
-
-        if (dataResponse) {
-          getPotentials();
-        } else {
-          axios.post(
-            "http://localhost:3000/constraints/" +
-              localStorage.getItem("SoldierID"),
-            {
-              name: localStorage.getItem("SoldierName"),
-              soldierId: localStorage.getItem("SoldierID"),
-              population: localStorage.getItem("SoldierPopulation"),
-              constraintList: [],
-            }
-          );
-        }
-      });
-    const getPotentials = async () => {
+    const getShifts = async () => {
       const response = await fetch(
-        "http://localhost:3000/constraints/" + localStorage.getItem("SoldierID")
-      );
-      const constraints: Constraints[] = await response.json();
+        `http://localhost:3000/potential/shifts/population/${localStorage.getItem("SoldierPopulation")}`);
+      const shifts: Shift[] = await response.json();
+      
       const allConstraints: GridValidRowModel[] = [];
 
-      constraints.forEach((constraint) => {
-        const constraintRows = constraint.constraintList.map((item) => ({
-          ...item,
-          id: item["_id"],
-          startdate: new Date(item["startdate"]),
-          enddate: new Date(item["enddate"]),
-          name: constraint["name"],
-          soldierId: constraint["soldierId"],
-        }));
-
-        allConstraints.push(...constraintRows);
-      });
-      setRows(allConstraints);
+      shifts.forEach((shift) => {       
+        const shiftRow = {
+            id: shift["_id"],
+            shiftName: shift.ShiftType.name,
+            shiftPointValue: shift.ShiftType.pointValue,
+            shiftPopulation: shift.ShiftType.population,
+            executorName: shift.Executor.name,
+            executorId: shift.Executor.soldierId,
+            firstSubstituteName: shift.FirstSubstitute.name !== undefined ? shift.FirstSubstitute.name : "",
+            firstSubstituteId: shift.FirstSubstitute.soldierId !== undefined ? shift.FirstSubstitute.soldierId : 0,
+            secondSubstituteName: shift.SecondSubstitute.name ? shift.SecondSubstitute.name : "",       // Need to add second substitute
+            secondSubstituteId: shift.SecondSubstitute.soldierId ? shift.SecondSubstitute.soldierId : 0 ,    // Need to add second substitute
+            pointMultiplier: shift.PointMultiplier,
+            startdate: new Date(shift.startdate),
+            enddate: new Date(shift.enddate),
+        }
+        allConstraints.push(shiftRow);
+        });
+        setRows(allConstraints);
     };
+    getShifts(); 
   }, []);
 
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
@@ -148,17 +140,17 @@ const ConstraintsTable = () => {
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    rows.forEach((row) => {
+    rows.forEach((row) => {      
       if (row.id === id) {
         axios
           .delete(
-            "http://localhost:3000/constraints/" + row.soldierId + "/" + row._id
+            `http://localhost:3000/potential/shifts/${row.id}`
           )
           .then((response) => {
             setOpen({
               open: true,
               severity: "success",
-              message: "Constraint deleted successfully",
+              message: "Shift deleted successfully",
             });
           })
           .catch((error) => {
@@ -189,11 +181,15 @@ const ConstraintsTable = () => {
     if (newRow.isNew) {
       axios
         .post(
-          "http://localhost:3000/constraints/constraint/" + newRow.soldierId,
+          `http://localhost:3000/potential/shifts/${localStorage.getItem("SoldierPopulation")}`,
           {
-            constraint: newRow.constraint,
-            startdate: newRow.startdate,
-            enddate: newRow.enddate,
+            ShiftType: { name: newRow.shiftName, pointValue: newRow.shiftPointValue, population: newRow.shiftPopulation},
+            Executor: { name: newRow.executorName, soldierId: newRow.executorId, population: newRow.shiftPopulation },
+            FirstSubstitute: { name: newRow.firstSubstituteName, soldierId: newRow.firstSubstituteId, population: newRow.shiftPopulation },
+            SecondSubstitute: { name: newRow.secondSubstituteName, soldierId: newRow.secondSubstituteId, population: newRow.shiftPopulation },
+            PointMultiplier: newRow.pointMultiplier,
+            startdate: new Date(newRow.startdate),
+            enddate: new Date(newRow.enddate),
           }
         )
         .then((response) => {
@@ -213,14 +209,15 @@ const ConstraintsTable = () => {
     } else {
       axios
         .put(
-          "http://localhost:3000/constraints/" +
-            newRow.soldierId +
-            "/" +
-            newRow._id,
+          `http://localhost:3000/potential/shifts/${newRow.id}`,
           {
-            constraint: newRow.constraint,
-            startdate: newRow.startdate,
-            enddate: newRow.enddate,
+            ShiftType: { name: newRow.shiftName, pointValue: newRow.shiftPointValue, population: newRow.shiftPopulation},
+            Executor: { name: newRow.executorName, soldierId: newRow.executorId, population: newRow.shiftPopulation },
+            FirstSubstitute: { name: newRow.firstSubstituteName, soldierId: newRow.firstSubstituteId, population: newRow.shiftPopulation },
+            SecondSubstitute: { name: newRow.secondSubstituteName, soldierId: newRow.secondSubstituteId, population: newRow.shiftPopulation },
+            PointMultiplier: newRow.pointMultiplier,
+            startdate: new Date(newRow.startdate),
+            enddate: new Date(newRow.enddate),
           }
         )
         .then((response) => {
@@ -248,30 +245,92 @@ const ConstraintsTable = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "שם", width: 180, editable: false },
+    { field: "shiftName", headerName: "שם שמירה", width: 130, editable: true },
     {
-      field: "soldierId",
-      headerName: "מספר אישי",
-      type: "id",
-      width: 100,
+        field: "shiftPointValue",
+        headerName: "ניקוד לשמירה",
+        width: 40,
+        editable: true,
+    },
+    {
+        field: "shiftPopulation",
+        headerName: "אוכלוסיה",
+        width: 100,
+        editable: true,
+    },
+    {
+      field: "executorName",
+      headerName: "שם מבצע",
+      width: 150,
       align: "left",
       headerAlign: "left",
+      editable: true,
+    },
+    {
+        field: "executorId",
+        headerName: "מספר אישי מבצע",
+        type: "id",
+        width: 120,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
+    },
+    {
+        field: "firstSubstituteName",
+        headerName: "שם עתודה ראשון",
+        width: 150,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
+    },
+    {
+        field: "firstSubstituteId",
+        headerName: "מספר אישי עתודה ראשון",
+        type: "id",
+        width: 120,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
+    },
+    {
+        field: "secondSubstituteName",
+        headerName: "שם עתודה שני",
+        width: 150,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
+    },
+    {
+        field: "secondSubstituteId",
+        headerName: "מספר אישי עתודה שני",
+        type: "id",
+        width: 120,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
+    },
+    {
+        field: "pointMultiplier",
+        headerName: "מכפיל ניקוד",
+        width: 100,
+        align: "left",
+        headerAlign: "left",
+        editable: true,
     },
     {
       field: "startdate",
       headerName: "תאריך התחלה אילוץ",
       type: "date",
-      width: 180,
+      width: 150,
       editable: true,
     },
     {
       field: "enddate",
       headerName: "תאריך סיום אילוץ",
       type: "date",
-      width: 180,
+      width: 150,
       editable: true,
     },
-    { field: "constraint", headerName: "אילוץ", width: 1000, editable: true },
     {
       field: "actions",
       type: "actions",
@@ -321,39 +380,7 @@ const ConstraintsTable = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#b1a296",
-        height: "100%",
-        borderRadius: 2,
-        marginTop: 4,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 3,
-      }}
-    >
-      <Typography
-        variant="h4"
-        style={{
-          color: "white",
-          fontWeight: "700px",
-          textAlign: "center",
-          marginTop: "20px",
-        }}
-      >
-        אילוצים
-      </Typography>
-      <Box
-        sx={{
-          height: 671,
-          direction: "rtl",
-          backgroundColor: "white",
-          borderRadius: "5px",
-          marginLeft: "40px",
-          marginRight: "40px",
-          marginTop: "20px",
-        }}
-      >
+    <Box>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -387,18 +414,8 @@ const ConstraintsTable = () => {
             </Alert>
           }
         </Snackbar>
-      </Box>
-      <Typography
-        variant="h6"
-        style={{
-          color: "white",
-          height: "40px",
-          marginBottom: 2,
-          fontWeight: "700px",
-        }}
-      />
     </Box>
   );
 };
 
-export default ConstraintsTable;
+export default EditShifts;
